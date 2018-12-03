@@ -1,0 +1,102 @@
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title pull-left">Make a new Post</h1>
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blogs">Blog</a></li>
+            <li class="active">Blog Medium Thumbnail</li>
+        </ol>
+    </div>
+</div>
+<!--end breadcrumb  -->
+<div class="page-content">
+    <div class="container">
+        @if ($errors->any())
+          <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+          </div><br />
+        @endif
+        
+        <div class="row">
+            <div class="col-md-8">
+                <form method="Post" action="route('posts.store')" enctype="multipart/form-data">
+                        @csrf
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="form-group col-md-4">
+                            <input type="file" name="image" class="form-control" value=" old('image')">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="category" class="col-md-2 col-form-label text-md-right"> __('Title')</label>
+
+                        <div class="col-md-6">
+                            <input type="type" name="title" value=" old('title') ">
+                            
+                            @if ($errors->has('title'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong> $errors->first('title') </strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="category" class="col-md-2 col-form-label text-md-right"> __('Category')label>
+
+                        <div class="col-md-6">
+                            <select id="category" name="category_id" class="form-control">
+                                    <option value="category->id"> $category->name</option>
+                            </select> 
+                                <span class="invalid-feedback" role="alert">
+                                    <strong> $errors->first('category_id') </strong>
+                                </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                
+                            <textarea class="form-control", id="summary-ckeditor" name="body">old('body')</textarea>
+                    </div>
+                            <br>    
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                Make Post
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-3">
+            <!-- SIDEBAR -->
+            <!-- search form -->
+            <div class="widget">
+                <h4 class="widget-title">TAGS</h4>
+                <form action="#" class="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="enter search term">
+                        <!-- <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </span> -->
+                    </div>
+                </form>
+                <ul class="list-inline list">
+                        <li><input type="checkbox" name="tags" value="tag->ida href="route('tags.show',$tag->uuid)">$tag->name</a></li>
+                    
+                </ul>
+            </div>
+            <!-- end search form -->
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.replace('summary-ckeditor');
+</script>
+@endsection
+
