@@ -1,19 +1,17 @@
 const express = require('express');
 const path = require("path");
 
+// set up handlebars view engine
+var hbs = require('hbs');
+var hbsutils = require('hbs-utils');
+
 //init app
 const app = express();
 
 const blocks = {};
 
-// set up handlebars view engine
-var hbs = require('hbs');
-var hbsutils = require('hbs-utils');
 
 const templateUtil = hbsutils(hbs);
-
-
-
 templateUtil.registerPartials('${__dirname}/views/partials');
 templateUtil.registerWatchedPartials('${__dirname}/views/partials');
 templateUtil.precompilePartials('${__dirname}/views/partials');
@@ -82,10 +80,8 @@ app.get('/add-blog', function(req, res){
 
 // blog 
 app.get('/blog', function(req, res){
-	res.render('blog', {
-		pageTitle: "Blog",
-		pageId : "blog"
-	})
+	
+	res.render('blog', { pageTitle: "Blog", pageId : "blog", layout: 'layouts/main' })
 })
 
 
@@ -105,6 +101,6 @@ app.use(function(err, req, res, next){
 });
 
 // start server on port 8000
-app.listen(8000, function(){
+app.listen(3000, function(){
 	console.log("Server running on port 8000");
 })
